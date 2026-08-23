@@ -339,6 +339,10 @@ extern "C" void impl_Shadows(CDrawableComponent_ *self) {
 		self->m_drawableFlags |= DF_CastShadowsWhenNotVisible;
 		self->m_drawableFlags |= DF_NoDissolves;
 	}
+
+    if (name == L"torch.w2ent") {
+        self->m_drawableFlags |= DF_CastShadows;
+    }
 }
 
 
