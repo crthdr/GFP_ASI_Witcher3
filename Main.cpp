@@ -1,8 +1,6 @@
 
-#include <fstream>
 #include <windows.h>
 #include <algorithm>
-#include <cstdint>
 #include <psapi.h>
 #include <vector>
 #include <string>
@@ -230,7 +228,7 @@ public:
 template<class T> 
 class ReferencableInternalHandle_ { 
 public:
-    char raw[12 + sizeof(T*)]; 
+    char raw[16 + sizeof(T*)];
 
     inline T* Get() {
         if (NGE) {
@@ -332,11 +330,14 @@ extern "C" void impl_Shadows(CDrawableComponent_ *self) {
 
 	if (className == ".?AVCItemEntity@@" ||
 		className == ".?AVCWitcherSword@@" ||
-		className == ".?AVCProjectileTrajectory@@" ||
 		className == ".?AVRangedWeapon@@" || // without C
 		name.find(L"ciri") != std::string::npos) {
 
 		self->m_drawableFlags |= DF_CastShadowsWhenNotVisible;
+		self->m_drawableFlags |= DF_NoDissolves;
+	}
+
+    if (className == ".?AVCProjectileTrajectory@@") {
 		self->m_drawableFlags |= DF_NoDissolves;
 	}
 
